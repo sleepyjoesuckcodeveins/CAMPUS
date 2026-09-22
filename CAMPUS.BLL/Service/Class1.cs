@@ -1,4 +1,4 @@
-﻿namespace CAMPUS.DAL
+﻿namespace CAMPUS.BLL.Service
 {
     public class Class1
     {
