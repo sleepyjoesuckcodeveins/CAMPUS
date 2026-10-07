@@ -1,0 +1,7 @@
+image:
+stages:
+  - build
+  - test
+  - publish
+  - deploy
+ 
