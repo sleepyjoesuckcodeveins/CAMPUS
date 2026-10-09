@@ -1,6 +1,9 @@
 <Solution>
   <Project Path="CAMPUS.BLL/CAMPUS.BLL.csproj" />
+  <Project Path="CAMPUS.DAL.Tests/CAMPUS.DAL.Tests.csproj" />
   <Project Path="CAMPUS.DAL/CAMPUS.DAL.csproj" />
   <Project Path="CAMPUS.DOMAIN/CAMPUS.DOMAIN.csproj" />
-  <Project Path="CAMPUS/CAMPUS.PL.csproj" />
+  <Project Path="CAMPUS.Notifications/CAMPUS.Notifications.csproj" />
+  <Project Path="CAMPUS.Tests/CAMPUS.Tests.csproj" />
+  <Project Path="CAMPUS.PL/CAMPUS.PL.csproj" />
 </Solution>
