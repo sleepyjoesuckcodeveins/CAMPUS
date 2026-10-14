@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CAMPUS.BLL\CAMPUS.BLL.csproj" />
+    <ProjectReference Include="..\CAMPUS.DAL.Tests\CAMPUS.DAL.Tests.csproj" />
     <ProjectReference Include="..\CAMPUS.DOMAIN\CAMPUS.DOMAIN.csproj" />
     <ProjectReference Include="..\CAMPUS.Notifications\CAMPUS.Notifications.csproj" />
     <ProjectReference Include="..\CAMPUS.PL\CAMPUS.PL.csproj" />
