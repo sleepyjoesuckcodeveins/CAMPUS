@@ -13,7 +13,7 @@ namespace CAMPUS.PL.Pages
         public async Task Onget()
         {
             var authenticationProperties = new LogoutAuthenticationPropertiesBuilder()
-                .WithRedirectUri(Url.Action("Index"))
+                .WithRedirectUri(Url.Page("/Index"))
                 .Build();
 
             await HttpContext.SignOutAsync(Auth0Constants.AuthenticationScheme, authenticationProperties);
