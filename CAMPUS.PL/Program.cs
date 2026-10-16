@@ -1,4 +1,5 @@
-
+using CAMPUS.DAL;
+using Microsoft.EntityFrameworkCore;
 using Auth0.AspNetCore.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,8 +10,16 @@ builder.Services.AddAuth0WebAppAuthentication(options =>
     options.ClientSecret = builder.Configuration["Auth0:ClientSecret"];
 });
 
-// Add services to the container.
 builder.Services.AddRazorPages();
+
+var connectionString = builder.Configuration.GetConnectionString("CampusDb");
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    throw new InvalidOperationException("Connection string 'CampusDb' is missing.");
+}
+
+builder.Services.AddDbContext<CampusDbContext>(options =>
+    options.UseSqlServer(connectionString, sql => sql.EnableRetryOnFailure()));
 
 var app = builder.Build();
 
@@ -18,7 +27,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
