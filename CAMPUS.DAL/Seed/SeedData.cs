@@ -39,13 +39,13 @@ namespace CAMPUS.DAL.Seed
                 new Team { Id = 5, Name = "IT" });
 
             modelBuilder.Entity<User>().HasData(
-                new User { Id = 1, Name = "Emma de Vries", Email = "employee@campus.test", Role = Roles.Employee },
-                new User { Id = 2, Name = "Daan Jansen", Email = "employee2@campus.test", Role = Roles.Employee },
-                new User { Id = 3, Name = "Alex Morgan", Email = "manager@campus.test", Role = Roles.FacilitiesManager },
-                new User { Id = 4, Name = "Sam Bakker", Email = "support@campus.test", Role = Roles.SupportTeam, TeamId = 2 },
-                new User { Id = 5, Name = "Lisa Peters", Email = "support2@campus.test", Role = Roles.SupportTeam, TeamId = 3 },
-                new User { Id = 6, Name = "Nora Visser", Email = "admin@campus.test", Role = Roles.Administrator },
-                new User { Id = 7, Name = "Tom Smit", Email = "support3@campus.test", Role = Roles.SupportTeam });
+                new User { Id = 1, Name = "Emma de Vries", Email = "employee@campus.test", Role = UserRole.Employee },
+                new User { Id = 2, Name = "Daan Jansen", Email = "employee2@campus.test", Role = UserRole.Employee },
+                new User { Id = 3, Name = "Alex Morgan", Email = "manager@campus.test", Role = UserRole.FacilitiesManager },
+                new User { Id = 4, Name = "Sam Bakker", Email = "support@campus.test", Role = UserRole.SupportTeam, TeamId = 2 },
+                new User { Id = 5, Name = "Lisa Peters", Email = "support2@campus.test", Role = UserRole.SupportTeam, TeamId = 3 },
+                new User { Id = 6, Name = "Nora Visser", Email = "admin@campus.test", Role = UserRole.Administrator },
+                new User { Id = 7, Name = "Tom Smit", Email = "support3@campus.test", Role = UserRole.SupportTeam });
 
             modelBuilder.Entity<ServiceRequest>().HasData(
                 new ServiceRequest
