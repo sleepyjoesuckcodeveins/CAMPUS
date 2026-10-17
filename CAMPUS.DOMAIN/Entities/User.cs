@@ -10,6 +10,7 @@ namespace CAMPUS.DOMAIN.Entities
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
+        public string? Auth0Id { get; set; }
         public UserRole Role { get; set; } = UserRole.Employee;
         public int? TeamId { get; set; }
         public Team? Team { get; set; }

@@ -46,6 +46,12 @@ namespace CAMPUS.DAL
             modelBuilder.Entity<Campus>(e => { e.Property(c => c.Name).HasMaxLength(100); e.HasIndex(c => c.Name).IsUnique(); });
             modelBuilder.Entity<Category>(e => { e.Property(c => c.Name).HasMaxLength(100); e.HasIndex(c => c.Name).IsUnique(); });
 
+            modelBuilder.Entity<User>(e =>
+            {
+                e.Property(u => u.Auth0Id).HasMaxLength(100);
+                e.HasIndex(u => u.Auth0Id).IsUnique().HasFilter("[Auth0Id] IS NOT NULL");
+            });
+
             SeedData.Apply(modelBuilder);
         }
     }
