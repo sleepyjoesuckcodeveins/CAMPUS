@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <ProjectReference Include="..\CAMPUS.DAL\CAMPUS.DAL.csproj" />
     <ProjectReference Include="..\CAMPUS.DOMAIN\CAMPUS.DOMAIN.csproj" />
   </ItemGroup>
 

@@ -9,8 +9,7 @@ using System.Text;
 namespace CAMPUS.DAL.Seed
 {
     public static class SeedData
-    {
-        public static void Apply(ModelBuilder modelBuilder)
+    {      public static void Apply(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Campus>().HasData(
                 new Campus { Id = 1, Name = "Rotterdam" },
@@ -177,5 +176,7 @@ namespace CAMPUS.DAL.Seed
 
         private static DateTime Utc(int month, int day, int hour, int minute) =>
             new(2026, month, day, hour, minute, 0, DateTimeKind.Utc);
+        
     }
+    
 }

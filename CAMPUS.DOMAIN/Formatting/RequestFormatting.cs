@@ -29,13 +29,13 @@ namespace CAMPUS.DOMAIN.Formatting
             _ => priority.ToString()
         };
 
-        public static string RoleLabel(string role) => role switch
+        public static string RoleLabel(Roles role) => role switch
         {
             Roles.Employee => "Employee",
             Roles.FacilitiesManager => "Facilities manager",
             Roles.SupportTeam => "Support team",
             Roles.Administrator => "Administrator",
-            _ => role
+            _ => role.ToString()
         };
     }
 }
