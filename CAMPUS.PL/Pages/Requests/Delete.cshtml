@@ -1,0 +1,43 @@
+﻿@page "{id:int}"
+@using CAMPUS.BLL.Common
+@using CAMPUS.DOMAIN.Formatting
+@using CAMPUS.PL.Helpers
+@model CAMPUS.PL.Pages.Requests.DeleteModel
+@{
+    ViewData["Title"] = "Delete request";
+    var r = Model.Request!;
+}
+
+<div class="page-header">
+    <div>
+        <span class="eyebrow">@r.RefCode()</span>
+        <h1 class="page-title">Delete request</h1>
+        <p class="page-subtitle">@Messages.DeleteConfirm</p>
+    </div>
+</div>
+
+<div class="card-c">
+    <div class="card-c-header">
+        <h2 class="card-c-title">@r.Title</h2>
+        <p class="card-c-subtitle">@r.RefCode()</p>
+    </div>
+    <div class="card-c-body">
+        <dl class="detail-list">
+            <dt>Category</dt>
+            <dd>@r.Category?.Name.OrDash()</dd>
+            <dt>Campus</dt>
+            <dd>@r.Campus?.Name.OrDash()</dd>
+            <dt>Location</dt>
+            <dd>@r.Location.OrDash()</dd>
+            <dt>Created</dt>
+            <dd>@r.CreatedAt.ToDisplayDate()</dd>
+        </dl>
+
+        <form method="post" class="d-flex gap-2">
+            <button type="submit" class="btn btn-campus-danger">
+                <i class="bi bi-trash" aria-hidden="true"></i> Delete request
+            </button>
+            <a asp-page="/Requests/Details" asp-route-id="@r.Id" class="btn btn-campus-link">Cancel</a>
+        </form>
+    </div>
+</div>
