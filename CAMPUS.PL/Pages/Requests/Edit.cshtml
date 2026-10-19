@@ -1,0 +1,35 @@
+﻿@page "{id:int}"
+@model CAMPUS.PL.Pages.Requests.EditModel
+@{
+    ViewData["Title"] = "Edit request";
+    var id = (int)RouteData.Values["id"]!;
+}
+
+<div class="page-header">
+    <div>
+        <span class="eyebrow">@ViewData["RefCode"]</span>
+        <h1 class="page-title">Edit request</h1>
+        <p class="page-subtitle">You can change your request until it's assigned to a team.</p>
+    </div>
+</div>
+
+<div class="card-c">
+    <div class="card-c-body">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="field-error"></div>
+
+            <partial name="_RequestFormFields" model="Model" />
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-campus">
+                    <i class="bi bi-check-lg" aria-hidden="true"></i> Save changes
+                </button>
+                <a asp-page="/Requests/Details" asp-route-id="@id" class="btn btn-campus-link">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
