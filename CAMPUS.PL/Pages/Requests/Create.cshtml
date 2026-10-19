@@ -1,0 +1,34 @@
+﻿@page
+@model CAMPUS.PL.Pages.Requests.CreateModel
+@{
+    ViewData["Title"] = "New request";
+}
+
+<div class="page-header">
+    <div>
+        <span class="eyebrow">Service desk</span>
+        <h1 class="page-title">New request</h1>
+        <p class="page-subtitle">Tell us what's wrong and where. The facilities team will pick it up.</p>
+    </div>
+</div>
+
+<div class="card-c">
+    <div class="card-c-body">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="field-error"></div>
+
+            <partial name="_RequestFormFields" model="Model" />
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-campus">
+                    <i class="bi bi-send" aria-hidden="true"></i> Submit request
+                </button>
+                <a asp-page="/Index" class="btn btn-campus-link">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
