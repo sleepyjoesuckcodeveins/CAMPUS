@@ -1,0 +1,81 @@
+﻿@page
+@using CAMPUS.DOMAIN.Formatting
+@using CAMPUS.PL.Helpers
+@using CAMPUS.BLL.Common
+@model CAMPUS.PL.Pages.Requests.MineModel
+@{
+    ViewData["Title"] = "My requests";
+}
+
+<div class="page-header">
+    <div>
+        <span class="eyebrow">Service desk</span>
+        <h1 class="page-title">My requests</h1>
+        <p class="page-subtitle">Everything you've reported, newest first.</p>
+    </div>
+    <a asp-page="/Requests/Create" class="btn btn-campus">
+        <i class="bi bi-plus-lg" aria-hidden="true"></i> New request
+    </a>
+</div>
+
+@if (Model.Requests.Count == 0)
+{
+    <div class="card-c">
+        <div class="empty-state">
+            <i class="bi bi-inbox" aria-hidden="true"></i>
+            <p>@Messages.MyRequestsEmpty</p>
+            <a asp-page="/Requests/Create" class="btn btn-campus">
+                <i class="bi bi-plus-lg" aria-hidden="true"></i> New request
+            </a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card-c">
+        <div class="table-responsive">
+            <table class="table-c">
+                <thead>
+                    <tr>
+                        <th>Request</th>
+                        <th>Category</th>
+                        <th>Campus</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Assigned team</th>
+                        <th class="text-end">Created</th>
+                        <th><span class="visually-hidden">Actions</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var r in Model.Requests)
+                    {
+                        <tr>
+                            <td>
+                                <a asp-page="/Requests/Details" asp-route-id="@r.Id" class="req-title">@r.Title</a>
+                                <div class="req-meta">@r.RefCode() · @r.Location</div>
+                            </td>
+                            <td>@r.Category?.Name.OrDash()</td>
+                            <td>@r.Campus?.Name.OrDash()</td>
+                            <td><partial name="_PriorityBadge" model="r.Priority" /></td>
+                            <td><partial name="_StatusBadge" model="r.Status" /></td>
+                            <td>@r.AssignedTeam?.Name.OrDash()</td>
+                            <td class="text-end">@r.CreatedAt.ToTimeAgo()</td>
+                            <td class="text-end">
+                                @if (Model.CanEdit(r))
+                                {
+                                    <a asp-page="/Requests/Edit" asp-route-id="@r.Id" class="btn btn-sm btn-campus-outline">
+                                        <i class="bi bi-pencil" aria-hidden="true"></i> Edit
+                                    </a>
+                                    <a asp-page="/Requests/Delete" asp-route-id="@r.Id" class="btn btn-sm btn-campus-outline">
+                                        <i class="bi bi-trash" aria-hidden="true"></i> Delete
+                                    </a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
