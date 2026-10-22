@@ -1,3 +1,5 @@
+using CAMPUS.BLL.Interfaces;
+using CAMPUS.BLL.Services;
 using CAMPUS.DAL;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +15,10 @@ if (string.IsNullOrWhiteSpace(connectionString))
 
 builder.Services.AddDbContext<CampusDbContext>(options =>
     options.UseSqlServer(connectionString, sql => sql.EnableRetryOnFailure()));
+
+// Services
+builder.Services.AddSingleton(TimeProvider.System);
+builder.Services.AddScoped<IRequestService, RequestService>();
 
 var app = builder.Build();
 
