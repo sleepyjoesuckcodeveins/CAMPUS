@@ -1,0 +1,86 @@
+﻿@page "{id:int}"
+@using CAMPUS.BLL.Common
+@using CAMPUS.DOMAIN.Enums
+@using CAMPUS.DOMAIN.Formatting
+@using CAMPUS.PL.Helpers
+@model CAMPUS.PL.Pages.Manager.AssignModel
+@{
+    ViewData["Title"] = "Assign request";
+    var r = Model.Request!;
+}
+
+<div class="page-header">
+    <div>
+        <span class="eyebrow">@r.RefCode()</span>
+        <h1 class="page-title">Assign request</h1>
+        <p class="page-subtitle">Choose the support team that will handle this request.</p>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-lg-7">
+        <div class="card-c">
+            <div class="card-c-header">
+                <h2 class="card-c-title">Request</h2>
+                <p class="card-c-subtitle">@r.RefCode() · @r.Title</p>
+            </div>
+            <div class="card-c-body">
+                <p class="request-description">@r.Description</p>
+                <dl class="detail-list">
+                    <dt>Category</dt>
+                    <dd>@((r.Category?.Name).OrDash())</dd>
+                    <dt>Campus</dt>
+                    <dd>@((r.Campus?.Name).OrDash())</dd>
+                    <dt>Location</dt>
+                    <dd>@r.Location.OrDash()</dd>
+                    <dt>Priority</dt>
+                    <dd><partial name="_PriorityBadge" model="r.Priority" /></dd>
+                    <dt>Status</dt>
+                    <dd><partial name="_StatusBadge" model="r.Status" /></dd>
+                    <dt>Reported by</dt>
+                    <dd>@((r.Reporter?.Name).OrDash())</dd>
+                    <dt>Current team</dt>
+                    <dd>@((r.AssignedTeam?.Name).OrDash())</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <div class="card-c">
+            <div class="card-c-header">
+                <h2 class="card-c-title">Assign to a team</h2>
+            </div>
+            <div class="card-c-body">
+                @if (r.Status == RequestStatus.Resolved)
+                {
+                    <p class="page-subtitle">@Messages.RequestAlreadyResolved</p>
+                    <a asp-page="/Manager/AllRequests" class="btn btn-campus-link">Back to all requests</a>
+                }
+                else
+                {
+                    <form method="post">
+                        <div class="mb-3">
+                            <label asp-for="TeamId" class="form-label"></label>
+                            <select asp-for="TeamId" asp-items="Model.Teams" class="form-select">
+                                <option value="" disabled selected>Choose a team</option>
+                            </select>
+                            <span asp-validation-for="TeamId" class="field-error"></span>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-campus">
+                                <i class="bi bi-people" aria-hidden="true"></i> Assign team
+                            </button>
+                            <a asp-page="/Manager/AllRequests" class="btn btn-campus-link">Cancel</a>
+                        </div>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
