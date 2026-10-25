@@ -25,6 +25,7 @@ builder.Services.AddScoped<IServiceRequestRepository, ServiceRequestRepository>(
 builder.Services.AddSingleton(TimeProvider.System);
 builder.Services.AddScoped<IRequestService, RequestService>();     // Person 3
 builder.Services.AddScoped<IOverviewService, OverviewService>();   // Person 4
+builder.Services.AddScoped<IAssignmentService, AssignmentService>();   // Person 4
 
 var app = builder.Build();
 
