@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace CAMPUS.BLL.Common;
 
-namespace CAMPUS.BLL.Common
+public enum ResultKind
 {
-    internal class Class1
-    {
-    }
+    Success,
+    Invalid,
+    NotFound,
+    Forbidden
 }
