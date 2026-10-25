@@ -1,6 +1,8 @@
 using CAMPUS.BLL.Interfaces;
 using CAMPUS.BLL.Services;
 using CAMPUS.DAL;
+using CAMPUS.DAL.Repositories;
+using CAMPUS.DOMAIN.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,9 +18,13 @@ if (string.IsNullOrWhiteSpace(connectionString))
 builder.Services.AddDbContext<CampusDbContext>(options =>
     options.UseSqlServer(connectionString, sql => sql.EnableRetryOnFailure()));
 
+// Repositories
+builder.Services.AddScoped<IServiceRequestRepository, ServiceRequestRepository>();
+
 // Services
 builder.Services.AddSingleton(TimeProvider.System);
-builder.Services.AddScoped<IRequestService, RequestService>();
+builder.Services.AddScoped<IRequestService, RequestService>();     // Person 3
+builder.Services.AddScoped<IOverviewService, OverviewService>();   // Person 4
 
 var app = builder.Build();
 
