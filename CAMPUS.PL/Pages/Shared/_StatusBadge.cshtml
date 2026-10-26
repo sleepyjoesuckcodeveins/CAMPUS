@@ -1,0 +1,15 @@
+@using CAMPUS.DOMAIN.Enums
+@using CAMPUS.DOMAIN.Formatting
+@model RequestStatus
+
+@{
+    var css = Model switch
+    {
+        RequestStatus.Open => "bg-primary-subtle text-primary-emphasis",
+        RequestStatus.InProgress => "bg-warning-subtle text-warning-emphasis",
+        RequestStatus.Resolved => "bg-success-subtle text-success-emphasis",
+        _ => "bg-light text-dark"
+    };
+}
+
+<span class="badge @css">@Model.ToLabel()</span>

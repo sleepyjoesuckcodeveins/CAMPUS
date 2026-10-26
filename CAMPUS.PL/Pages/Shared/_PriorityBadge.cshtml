@@ -1,0 +1,16 @@
+@using CAMPUS.DOMAIN.Enums
+@using CAMPUS.DOMAIN.Formatting
+@model Priority
+
+@{
+    var css = Model switch
+    {
+        Priority.Low => "bg-secondary-subtle text-secondary-emphasis",
+        Priority.Medium => "bg-info-subtle text-info-emphasis",
+        Priority.High => "bg-warning-subtle text-warning-emphasis",
+        Priority.Urgent => "bg-danger-subtle text-danger-emphasis",
+        _ => "bg-light text-dark"
+    };
+}
+
+<span class="badge @css">@Model.ToLabel()</span>

@@ -1,0 +1,114 @@
+@page "{id:int}"
+@using CAMPUS.DOMAIN.Formatting
+@using CAMPUS.PL.Helpers
+@model CAMPUS.PL.Pages.Requests.DetailsModel
+@{
+    ViewData["Title"] = "Request details";
+    var r = Model.Request!;
+}
+
+<div class="page-header">
+    <div>
+        <span class="eyebrow">@r.RefCode()</span>
+        <h1 class="page-title">@r.Title</h1>
+        <p class="page-subtitle">Request details and conversation.</p>
+    </div>
+    <div class="d-flex gap-2">
+        @if (Model.Permissions.CanChangeStatus && Model.NextStatuses.Count > 0)
+        {
+            <a asp-page="/Support/Update" asp-route-id="@r.Id" class="btn btn-campus-outline">
+                <i class="bi bi-arrow-repeat" aria-hidden="true"></i> Update status
+            </a>
+        }
+        @if (Model.Permissions.CanAssign)
+        {
+            <a asp-page="/Manager/Assign" asp-route-id="@r.Id" class="btn btn-campus-outline">
+                <i class="bi bi-people" aria-hidden="true"></i> Assign team
+            </a>
+        }
+        @if (Model.Permissions.CanEdit)
+        {
+            <a asp-page="/Requests/Edit" asp-route-id="@r.Id" class="btn btn-campus-outline">
+                <i class="bi bi-pencil" aria-hidden="true"></i> Edit
+            </a>
+        }
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-lg-7">
+        <div class="card-c mb-3">
+            <div class="card-c-header">
+                <h2 class="card-c-title">Request</h2>
+            </div>
+            <div class="card-c-body">
+                <p class="request-description">@r.Description</p>
+                <dl class="detail-list">
+                    <dt>Category</dt>
+                    <dd>@r.Category?.Name.OrDash()</dd>
+                    <dt>Campus</dt>
+                    <dd>@r.Campus?.Name.OrDash()</dd>
+                    <dt>Location</dt>
+                    <dd>@r.Location.OrDash()</dd>
+                    <dt>Priority</dt>
+                    <dd><partial name="_PriorityBadge" model="r.Priority" /></dd>
+                    <dt>Status</dt>
+                    <dd><partial name="_StatusBadge" model="r.Status" /></dd>
+                    <dt>Assigned team</dt>
+                    <dd>@r.AssignedTeam?.Name.OrDash()</dd>
+                    <dt>Reported by</dt>
+                    <dd>@r.Reporter?.Name.OrDash()</dd>
+                    <dt>Created</dt>
+                    <dd>@r.CreatedAt.ToDisplayDate()</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <div class="card-c">
+            <div class="card-c-header">
+                <h2 class="card-c-title">Comments</h2>
+            </div>
+            <div class="card-c-body">
+                @if (Model.Comments.Count == 0)
+                {
+                    <p class="page-subtitle">@CAMPUS.BLL.Common.Messages.CommentsEmpty</p>
+                }
+                else
+                {
+                    <ul class="list-unstyled">
+                        @foreach (var c in Model.Comments)
+                        {
+                            <li class="mb-3 pb-3 border-bottom">
+                                <div class="d-flex justify-content-between">
+                                    <strong>@c.Author?.Name.OrDash()</strong>
+                                    <small class="text-muted">@c.CreatedAt.ToDisplayDate()</small>
+                                </div>
+                                <div>@c.Text</div>
+                            </li>
+                        }
+                    </ul>
+                }
+
+                @if (Model.Permissions.CanComment)
+                {
+                    <form method="post" asp-page-handler="Comment">
+                        <div class="mb-2">
+                            <label asp-for="NewComment" class="form-label"></label>
+                            <textarea asp-for="NewComment" rows="4" class="form-control"></textarea>
+                            <span asp-validation-for="NewComment" class="field-error"></span>
+                        </div>
+                        <button type="submit" class="btn btn-campus">
+                            <i class="bi bi-chat-left-text" aria-hidden="true"></i> Add comment
+                        </button>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,65 @@
+@page "{id:int}"
+@using CAMPUS.DOMAIN.Formatting
+@model CAMPUS.PL.Pages.Support.UpdateModel
+@{
+    ViewData["Title"] = "Update status";
+    var r = Model.Request!;
+}
+
+<div class="page-header">
+    <div>
+        <span class="eyebrow">@r.RefCode()</span>
+        <h1 class="page-title">Update status</h1>
+        <p class="page-subtitle">Set the next status for this request.</p>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-lg-7">
+        <div class="card-c">
+            <div class="card-c-header">
+                <h2 class="card-c-title">@r.Title</h2>
+                <p class="card-c-subtitle">@r.RefCode()</p>
+            </div>
+            <div class="card-c-body">
+                <p>@r.Description</p>
+                <p>
+                    Current status:
+                    <partial name="_StatusBadge" model="r.Status" />
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-5">
+        <div class="card-c">
+            <div class="card-c-header">
+                <h2 class="card-c-title">Choose status</h2>
+            </div>
+            <div class="card-c-body">
+                <form method="post">
+                    <div class="mb-3">
+                        <label asp-for="NewStatus" class="form-label"></label>
+                        <select asp-for="NewStatus" class="form-select">
+                            @foreach (var status in Model.NextStatuses)
+                            {
+                                <option value="@status">@status.ToLabel()</option>
+                            }
+                        </select>
+                        <span asp-validation-for="NewStatus" class="field-error"></span>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-campus">
+                            <i class="bi bi-check2-circle" aria-hidden="true"></i> Save
+                        </button>
+                        <a asp-page="/Requests/Details" asp-route-id="@r.Id" class="btn btn-campus-link">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
